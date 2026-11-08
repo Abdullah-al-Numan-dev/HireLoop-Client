@@ -1,4 +1,11 @@
-import { Geist, Geist_Mono, Instrument_Sans, Inter } from "next/font/google"
+import {
+  Geist,
+  Geist_Mono,
+  Instrument_Sans,
+  Inter,
+  Manrope,
+  Space_Mono,
+} from "next/font/google"
 
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
@@ -22,6 +29,17 @@ const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
 })
 
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+})
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,7 +55,9 @@ export default function RootLayout({
         "font-sans",
         geist.variable,
         inter.variable,
-        instrumentSans.variable
+        instrumentSans.variable,
+        manrope.variable,
+        spaceMono.variable
       )}
     >
       <body>

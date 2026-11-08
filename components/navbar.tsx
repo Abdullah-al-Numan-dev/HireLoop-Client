@@ -73,7 +73,7 @@ export function Navbar() {
           <Image
             src={logo}
             alt="HireLoop"
-            priority
+            preload
             className="h-10 w-auto sm:h-11"
           />
         </Link>
