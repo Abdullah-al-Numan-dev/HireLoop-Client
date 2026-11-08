@@ -1,8 +1,7 @@
-import Image from "next/image"
 import Link from "next/link"
 import { MapPin, Search, Sparkles } from "lucide-react"
 
-import globe from "@/app/images/globe.png"
+import { GlobeBackdrop } from "@/components/globe-backdrop"
 
 const trendingPositions = [
   "Product Designer",
@@ -16,26 +15,7 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate -mt-[100px] overflow-hidden bg-[#08080a] pt-[100px]"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-0 left-1/2 -z-10 w-[1440px] max-w-none -translate-x-1/2"
-      >
-        <Image
-          src={globe}
-          alt=""
-          preload
-          sizes="1440px"
-          className="h-auto w-full select-none"
-        />
-      </div>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent from-55% to-[#08080a]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-52 bg-gradient-to-b from-[#08080a] via-[#08080a]/60 to-transparent"
-      />
+      <GlobeBackdrop />
 
       <div className="mx-auto flex min-h-[760px] w-full max-w-[1344px] flex-col items-center px-4 pt-16 pb-24 text-center sm:min-h-[820px] sm:px-6 sm:pt-20 lg:min-h-[860px] lg:px-8 lg:pt-28">
         <div className="flex items-center justify-center">
