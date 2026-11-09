@@ -10,8 +10,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { authClient } from "@/lib/auth-client"
+import { isUserRole } from "@/lib/auth-roles"
 
 import { PasswordInput } from "./password-input"
+import { RoleSelect } from "./role-select"
 import { authInputClassName } from "./styles"
 
 export function SignUpForm() {
@@ -28,6 +30,8 @@ export function SignUpForm() {
     const password = String(formData.get("password") ?? "")
     const confirmPassword = String(formData.get("confirmPassword") ?? "")
     const acceptedTerms = formData.get("terms") === "on"
+    const roleValue = formData.get("role")
+    const role = isUserRole(roleValue) ? roleValue : "seeker"
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.")
@@ -47,6 +51,7 @@ export function SignUpForm() {
         name,
         email,
         password,
+        role,
       })
 
       if (signUpError) {
@@ -98,6 +103,8 @@ export function SignUpForm() {
           className={authInputClassName}
         />
       </div>
+
+      <RoleSelect disabled={isSubmitting} />
 
       <div className="space-y-2">
         <Label htmlFor="password" className="text-white/80">

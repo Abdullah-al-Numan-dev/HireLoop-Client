@@ -1,22 +1,36 @@
-import { betterAuth } from "better-auth";
-import { MongoClient } from "mongodb";
-import { mongodbAdapter } from "@better-auth/mongo-adapter";
+import { betterAuth } from "better-auth"
+import { MongoClient } from "mongodb"
+import { mongodbAdapter } from "@better-auth/mongo-adapter"
 
-const client = new MongoClient(process.env.BETTER_AUTH_DB_URI as string);
-const db = client.db('hireloopdb');
+import { USER_ROLE_VALUES, userRoleValidator } from "./auth-roles"
+
+const client = new MongoClient(process.env.BETTER_AUTH_DB_URI as string)
+const db = client.db("hireloopdb")
 
 export const auth = betterAuth({
-    
-    emailAndPassword: { 
-    enabled: true, 
+  emailAndPassword: {
+    enabled: true,
   },
-    socialProviders: {
-        google: { // [!code highlight]
-            clientId: process.env.GOOGLE_CLIENT_ID as string, // [!code highlight]
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, // [!code highlight]
-        }, // [!code highlight]
+  user: {
+    additionalFields: {
+      role: {
+        type: USER_ROLE_VALUES,
+        required: true,
+        defaultValue: "seeker",
+        input: true,
+        validator: {
+          input: userRoleValidator,
+        },
+      },
     },
-    database: mongodbAdapter(db, {
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
+  },
+  database: mongodbAdapter(db, {
     client,
   }),
-});
+})
